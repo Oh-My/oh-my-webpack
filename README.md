@@ -1,0 +1,109 @@
+## Introduction
+
+**Oh My Webpack** is (finally :tada:) the new build setup for all our frontend needs and purposes.
+There's not really anything else to say about it. If you have problems or questions, please pm **eriksson**, **antejohansson** or **viktor** on **Slack**. Any suggestions are welcome. And everyone is welcome to contribute to this repository, but please at least mention your planned change in **#frontendarklubben** so that we may discuss the changes.
+
+## Features
+So basically what we have here is some bundling with webpack. The setup comes with Tailwind for CSS, Vue/Axios/Lodash for JS, which is not entirely necessary for small projects but anything remotely complicated should be made with this trio, and a bunch of QoL-stuff like CSS-purging and autoformatting.
+
+### PostCSS
+Yeah, you heard it right. No more SCSS and crying terminals when trying to resolve missing `node-sass` bindings during `npm install`. We've included some neat PostCSS plugins though, which should essentially make the transition seamless.
+
+Oh, and by the way! You can add additional PostCSS plugins to your build if you want to do some crazy shit. See the `extend` option documented in the options section below.
+
+
+### Tailwind (https://tailwindcss.com/docs)
+In your project root you will find a file called tailwind.config.js.
+In there are a few examples on how you can extend the base config to fit your projects every need. This can be compared to setting up variables in SCSS.
+
+#### - "I am a fool and I want to write my own CSS"
+Sure, go ahead and remove the pre-included `@tailwind` directives in your `app.css`. However, you may want to keep `@tailwind base` which is essentialy `normalize.css`.
+
+### Vue.js (https://vuejs.org/v2/guide/)
+For anything other than simple add/remove classes and sending ajax requests for forms, we should be using **Vue** as our framework.
+
+#### If Vue is not for You
+You might not be needing **Vue**, and that's fine. Just remove all things **Vue** in your `app.js`.
+
+#### Other frameworks
+Don't count on the base webpack configuration to handle compilation of components for you. You can add the necessary loaders and stuff to the webpack configuration by using the `extend` option documented in the options section below.
+
+
+### Compatible with the Laravel Mix helper
+The build process generates a `mix-manifest.json` which means you may use the [`mix()`](https://laravel.com/docs/5.8/helpers#method-mix) helper just like normal to resolve asset urls in Laravel projects. It's actually also compatible with the automatic replacement of the asset urls when hot module replacement is enabled.
+
+To further take advantage of this fact, we've included the same mix helper in the WordPress boilerplate for you as well.
+
+## Commands
+The following commands are predefined for you in `package.json` to make your life a little easier:
+
+|Command|Description|
+|---|---|
+|**`npm run development`**|Builds your assets for development purposes.|
+|**`npm run dev`**|Alias of `npm run development`.|
+|**`npm run watch`**|Builds your assets for development purposes and rebuilds whenever files are changed.|
+|**`npm run hot`**|Like the above, but with hot module replacement enabled.|
+|**`npm run production`**|Builds your assets for production.|
+|**`npm run prod`**|Alias of `npm run production`.|
+|**`npm run build`**|Alias of `npm run production`.|
+
+
+## Options
+Our project boilerplates are already setup and ready to go, but sometimes you may want to do things a bit differently. The following options are available for you to dictate how webpack will compile your assets:
+
+|Name|Type|Required|Description|
+|-|--|-|-|
+|**`publicPath`**|`{String}`|`true`|Path to the public root directory served by your application, relative to the project root.|
+|**`out`**|`{String}`|`true`|Path to the build directory in which compiled assets are placed, relative to the project root.|
+|**`watch`**|`{Array.<string>}`|`true`|Additional files to be watched for changes, relative to the project root. Paths may include glob `*` patterns.|
+|**`purgeCss.enabled`**|`{Boolean}`|`false`|Whether [Purgecss](https://www.purgecss.com) should be used to remove unused classes. Default: `true`|
+|**`purgeCss.options`**|`{Object}`|`false`|An options object to pass to [Purgecss](https://www.purgecss.com). See the [documentation](https://www.purgecss.com/with-postcss) for available options.|
+|**`hmr.host`**|`{String}`|`false`|The address that webpack dev server will bind to for hot module replacement. Default: `localhost`|
+|**`hmr.port`**|`{Number}`|`false`|The port that webpack dev server will bind to for hot module replacement. Default: `8080`|
+|**`extend`**|`{Function}`|`false`|Extend or override the underlying webpack configuration. This callback function should return an object which will be deep merged with the current configuration. The callback receives two arguments: the current configuration `config` and `webpack`. |
+
+## Frequently Asked Questions
+
+- [The compiled CSS is missing a bunch of classes](#the-compiled-css-is-missing-a-bunch-of-classes)
+- [Web fonts are not loading or are giving me 404's in the console](#web-fonts-are-not-working-or-are-giving-me-404s-in-the-console)
+
+### The compiled CSS is missing a bunch of classes
+This is most certainly due to [Purgecss](https://www.purgecss.com/) treating them as unused classes, therefore removing them from the build result. To get around this you will either have to [whitelist](https://www.purgecss.com/whitelisting) the missing CSS classes or add additional watch paths to **`purgeCss`**  ([see the options section above](#options)).
+
+### Web fonts are not working or are giving me 404's in the console
+The urls in your **`@font-face`** declarations should be relative to the location of your compiled CSS file. So if for example your compiled CSS is stored and served from:
+
+`web/wp-content/themes/whatever/build`
+
+and you store your web fonts in:
+
+`web/wp-content/themes/whatever/build/fonts`
+
+then the correct url for your web fonts would be:
+
+`/fonts/MyWebFont.woff`
+
+## What's in the box?
+- [`style-loader`](https://www.npmjs.com/package/style-loader)
+- [`css-loader`](https://www.npmjs.com/package/css-loader)
+- [`postcss-loader`](https://www.npmjs.com/package/postcss-loader)
+- [`babel-loader`](https://www.npmjs.com/package/babel-loader)
+- [`vue-loader`](https://www.npmjs.com/package/vue-loader)
+- [`@babel/core`](https://www.npmjs.com/package/@babel/core)
+- [`@babel/preset-env`](https://www.npmjs.com/package/@babel/preset-env)
+- [`@babel/plugin-proposal-object-rest-spread`](https://www.npmjs.com/package/@babel/plugin-proposal-object-rest-spread)
+- [`@babel/plugin-syntax-dynamic-import`](https://www.npmjs.com/package/@babel/plugin-syntax-dynamic-import)
+- [`@babel/plugin-transform-runtime`](https://www.npmjs.com/package/@babel/plugin-transform-runtime)
+- [`postcss-nested`](https://www.npmjs.com/package/postcss-nested)
+- [`postcss-import`](https://www.npmjs.com/package/postcss-import)
+- [`postcss-mixins`](https://www.npmjs.com/package/postcss-mixins)
+- [`postcss-hexrgba`](https://www.npmjs.com/package/postcss-hexrgba)
+- [`autoprefixer`](https://www.npmjs.com/package/autoprefixer)
+- [`@fullhuman/postcss-purgecss`](https://www.npmjs.com/package/@fullhuman/postcss-purgecss)
+- [`terser-webpack-plugin`](https://www.npmjs.com/package/terser-webpack-plugin)
+- [`optimize-css-assets-webpack-plugin`](https://www.npmjs.com/package/optimize-css-assets-webpack-plugin)
+
+## Conclusion
+That's it. This project is forever changing and will hopefully be easily maintained (at least compared to the old Gulp boilerplate) by all of us.
+
+Kramis // Ante & Johan
