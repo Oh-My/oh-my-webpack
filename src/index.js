@@ -199,7 +199,7 @@ class WebpackConfig {
                     'Access-Control-Allow-Origin': '*'
                 },
                 disableHostCheck: true,
-                publicPath: this.options.publicPath,
+                contentBase: path.resolve(this.options.publicPath),
                 historyApiFallback: true,
                 noInfo: true,
                 compress: true,
