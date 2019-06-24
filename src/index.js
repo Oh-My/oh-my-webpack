@@ -15,6 +15,8 @@ class WebpackConfig {
     constructor(options) {
         this.options = require('./options-validator')(options)
 
+        this.hot = process.argv.includes('--hot');
+
         this.options.hmr = Object.assign({
             host: 'localhost', port: 8080
         }, this.options.hmr);
@@ -28,7 +30,7 @@ class WebpackConfig {
             fs.unlinkSync(path.join(this.options.out, 'hot'));
         }
 
-        if (process.argv.includes('--hot')) {
+        if (this.hot) {
             fs.writeFileSync(
                 path.join(this.options.out, 'hot'),
                 `http://${this.options.hmr.host}:${this.options.hmr.port}/`
@@ -50,8 +52,9 @@ class WebpackConfig {
             ],
 
             output: {
-                path: path.resolve(process.cwd(), this.options.out),
-                filename: 'app.js'
+                path: this.hot ? '/' : path.resolve(process.cwd(), this.options.out),
+                filename: 'app.js',
+                publicPath: this.hot ? `http://${this.options.hmr.host}:${this.options.hmr.port}/` : '/'
             },
 
             stats: {
