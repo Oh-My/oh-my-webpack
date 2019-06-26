@@ -34,19 +34,37 @@ The build process generates a `mix-manifest.json` which means you may use the [`
 
 To further take advantage of this fact, we've included the same mix helper in the WordPress boilerplate for you as well.
 
-## Commands
-The following commands are predefined for you in `package.json` to make your life a little easier:
+## Configuration example
 
-|Command|Description|
-|---|---|
-|**`npm run development`**|Builds your assets for development purposes.|
-|**`npm run dev`**|Alias of `npm run development`.|
-|**`npm run watch`**|Builds your assets for development purposes and rebuilds whenever files are changed.|
-|**`npm run hot`**|Like the above, but with hot module replacement enabled.|
-|**`npm run production`**|Builds your assets for production.|
-|**`npm run prod`**|Alias of `npm run production`.|
-|**`npm run build`**|Alias of `npm run production`.|
+```javascript
+const WebpackConfig = require('oh-my-webpack');
 
+module.exports = new WebpackConfig({
+    publicPath: 'web',
+    out: 'web/wp-content/themes/example-theme/build',
+    watch: [
+        "web/wp-content/**/*.php"
+    ],
+    purgeCss: {
+        // Enables purgeCss for production only (recommended)
+        enabled: process.env.NODE_ENV === 'production',
+        options: {
+            content: [
+                "./resources/js/**/*.js",
+                "./resources/js/**/*.vue",
+                "./web/wp-content/**/*.php"
+            ]
+        }
+    },
+    hmr: {
+        host: 'localhost',
+        port: 8080
+    },
+    extend: (config, webpack) => {
+        // Provide any additional webpack configuration options here
+    }
+});
+```
 
 ## Options
 Our project boilerplates are already setup and ready to go, but sometimes you may want to do things a bit differently. The following options are available for you to dictate how webpack will compile your assets:
@@ -62,13 +80,23 @@ Our project boilerplates are already setup and ready to go, but sometimes you ma
 |**`hmr.port`**|`{Number}`|`false`|The port that webpack dev server will bind to for hot module replacement. Default: `8080`|
 |**`extend`**|`{Function}`|`false`|Extend or override the underlying webpack configuration. This callback function should return an object which will be deep merged with the current configuration. The callback receives two arguments: the current configuration `config` and `webpack`. |
 
+## Commands
+The following commands are predefined for you in `package.json` to make your life a little easier:
+
+|Command|Description|
+|---|---|
+|**`npm run dev`**|Compiles your assets for development.|
+|**`npm run watch`**|Compiles your assets for development and recompiles whenever files are changed.|
+|**`npm run hot`**|Like the above, but with hot module replacement enabled.|
+|**`npm run build`**|Compiles your assets for production.|
+
 ## Frequently Asked Questions
 
-- [The compiled CSS is missing a bunch of classes](#the-compiled-css-is-missing-a-bunch-of-classes)
+- [I deployed my project and now a bunch of CSS classes are missing](#i-deployed-my-project-and-now-a-bunch-of-css-classes-are-missing)
 - [Web fonts are not loading or are giving me 404's in the console](#web-fonts-are-not-working-or-are-giving-me-404s-in-the-console)
 
-### The compiled CSS is missing a bunch of classes
-This is most certainly due to [Purgecss](https://www.purgecss.com/) treating them as unused classes, therefore removing them from the build result. To get around this you will either have to [whitelist](https://www.purgecss.com/whitelisting) the missing CSS classes or add additional watch paths to **`purgeCss`**  ([see the options section above](#options)).
+### I deployed my project and now a bunch of CSS classes are missing
+This is most certainly due to [Purgecss](https://www.purgecss.com/) treating them as unused classes, therefore removing them from the build result. To get around this you will either have to [whitelist](https://www.purgecss.com/whitelisting) the missing CSS classes or add additional watch paths to **`purgeCss`**  ([see the options section above](#options)). Note that purgeCss is usually only enabled when compiling using the **`npm run build`** command. Therefore it could be wise to run the command locally before you deploy to make sure your classes stays intact.
 
 ### Web fonts are not working or are giving me 404's in the console
 The urls in your **`@font-face`** declarations should be relative to the location of your compiled CSS file. So if for example your compiled CSS is stored and served from:
