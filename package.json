@@ -1,5 +1,5 @@
 {
-    "name": "oh-my-webpack",
+    "name": "@ohmy/webpack",
     "repository": {
         "type": "git",
         "url": "git+https://ohmy_dev@bitbucket.org/ohmy_dev/oh-my-webpack.git"
