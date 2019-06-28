@@ -39,9 +39,9 @@ module.exports = class ManifestPlugin {
 
         this.applyVersioning();
 
-        fs.ensureDirSync(this.out);
+        fs.ensureDirSync(this.publicPath);
         fs.writeFileSync(
-            path.join(this.out, 'mix-manifest.json'),
+            path.join(this.publicPath, 'mix-manifest.json'),
             JSON.stringify(this.manifest, null, 4) + os.EOL
         );
     }
