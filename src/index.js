@@ -125,6 +125,13 @@ class WebpackConfig {
                 })
             ],
 
+            resolve: {
+                alias: {
+                    'vue$' : 'vue/dist/vue.common.js'
+                },
+                extensions: ['*', '.wasm', '.mjs', '.js', '.jsx', '.json', '.vue']
+            },
+
             module: {
                 rules: [
                     {
