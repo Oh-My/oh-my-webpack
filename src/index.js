@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
 const fs = require('fs-extra');
+const chokidar = require('chokidar');
 
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -203,6 +204,11 @@ class WebpackConfig {
             },
 
             devServer: {
+                before: (app, server) => {
+                    chokidar.watch(this.options.watch).on('all', _ => {
+                        server.sockWrite(server.sockets, 'content-changed');
+                    });
+                },
                 host: this.options.hmr.host,
                 port: this.options.hmr.port,
                 headers: {
