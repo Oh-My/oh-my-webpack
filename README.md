@@ -16,7 +16,7 @@ Oh, and by the way! You can add additional PostCSS plugins to your build if you 
 In your project root you will find a file called tailwind.config.js.
 In there are a few examples on how you can extend the base config to fit your projects every need. This can be compared to setting up variables in SCSS.
 
-#### - "I am a fool and I want to write my own CSS"
+#### - "Uhm, I want to write my own CSS.."
 Sure, go ahead and remove the pre-included `@tailwind` directives in your `app.css`. However, you may want to keep `@tailwind base` which is essentialy `normalize.css`.
 
 ### Vue.js (https://vuejs.org/v2/guide/)
@@ -93,7 +93,7 @@ The following commands are predefined for you in `package.json` to make your lif
 ## Frequently Asked Questions
 
 - [I deployed my project and now a bunch of CSS classes are missing](#i-deployed-my-project-and-now-a-bunch-of-css-classes-are-missing)
-- [Web fonts are not loading or are giving me 404's in the console](#css-background-images-and-web-fonts-are-giving-me-404s)
+- [CSS background images and web fonts are giving me 404's](#css-background-images-and-web-fonts-are-giving-me-404s)
 
 ### I deployed my project and now a bunch of CSS classes are missing
 This is most certainly due to [Purgecss](https://www.purgecss.com/) treating them as unused classes, therefore removing them from the build result. To get around this you will either have to [whitelist](https://www.purgecss.com/whitelisting) the missing CSS classes or add additional watch paths to **`purgeCss`**  ([see the options section above](#options)). Note that purgeCss is usually only enabled when compiling using the **`npm run build`** command. Therefore it could be wise to run the command locally before you deploy to make sure your classes stays intact.
@@ -117,6 +117,7 @@ then the correct url for your web fonts would be:
 - [`postcss-loader`](https://www.npmjs.com/package/postcss-loader)
 - [`babel-loader`](https://www.npmjs.com/package/babel-loader)
 - [`vue-loader`](https://www.npmjs.com/package/vue-loader)
+- [`vue-template-compiler`](https://www.npmjs.com/package/vue-template-compiler)
 - [`@babel/core`](https://www.npmjs.com/package/@babel/core)
 - [`@babel/preset-env`](https://www.npmjs.com/package/@babel/preset-env)
 - [`@babel/plugin-proposal-object-rest-spread`](https://www.npmjs.com/package/@babel/plugin-proposal-object-rest-spread)
