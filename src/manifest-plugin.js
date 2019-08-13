@@ -20,6 +20,10 @@ module.exports = class ManifestPlugin {
         let stats = compiler.getStats().toJson();
         let assets = Object.assign({}, stats.assetsByChunkName);
 
+        if (! Array.isArray(assets.main)) {
+            assets.main = [assets.main];
+        }
+
         this.manifest = assets.main.reduce((manifest, asset) => {
             let filePath = path.join(this.out.replace(this.publicPath, ''), asset);
             let original = filePath.replace(/\?id=\w{20}/, '');
