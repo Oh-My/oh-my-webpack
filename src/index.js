@@ -3,6 +3,7 @@ const merge = require('webpack-merge');
 const path = require('path');
 const fs = require('fs-extra');
 const chokidar = require('chokidar');
+const { VueLoaderPlugin } = require('vue-loader');
 
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -105,6 +106,7 @@ class WebpackConfig {
                 } : {},
 
             plugins: [
+                new VueLoaderPlugin(),
                 new ManifestPlugin(
                     this.options.out,
                     this.options.publicPath
@@ -162,6 +164,15 @@ class WebpackConfig {
                                 ]
                             }
                         }
+                    },
+                    {
+                        test: /\.vue$/,
+                        use: [
+                            {
+                                loader: 'vue-loader',
+                                options: {}
+                            }
+                        ]
                     },
                     {
                         test: /\.css$/,
