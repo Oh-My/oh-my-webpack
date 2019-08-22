@@ -127,6 +127,7 @@ then the correct url for your web fonts would be:
 - [`postcss-import`](https://www.npmjs.com/package/postcss-import)
 - [`postcss-mixins`](https://www.npmjs.com/package/postcss-mixins)
 - [`postcss-hexrgba`](https://www.npmjs.com/package/postcss-hexrgba)
+- [`postcss-simple-vars`](https://github.com/postcss/postcss-simple-vars)
 - [`autoprefixer`](https://www.npmjs.com/package/autoprefixer)
 - [`@fullhuman/postcss-purgecss`](https://www.npmjs.com/package/@fullhuman/postcss-purgecss)
 - [`terser-webpack-plugin`](https://www.npmjs.com/package/terser-webpack-plugin)
