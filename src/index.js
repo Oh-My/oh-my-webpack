@@ -195,12 +195,12 @@ class WebpackConfig {
                                     sourceMap: process.env.NODE_ENV !== 'production',
                                     ident: 'postcss',
                                     plugins: [
+                                        require('postcss-import'),
                                         require('autoprefixer')({
                                             enabled: true
                                         }),
                                         require('tailwindcss'),
                                         require('postcss-mixins'),
-                                        require('postcss-import'),
                                         require('postcss-nested'),
                                         require('postcss-simple-vars'),
                                         require('postcss-hexrgba'),
