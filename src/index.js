@@ -196,10 +196,11 @@ class WebpackConfig {
                                     ident: 'postcss',
                                     plugins: [
                                         require('postcss-import'),
+                                        require('tailwindcss'),
                                         require('autoprefixer')({
                                             enabled: true
                                         }),
-                                        require('tailwindcss'),
+
                                         require('postcss-mixins'),
                                         require('postcss-nested'),
                                         require('postcss-simple-vars'),
