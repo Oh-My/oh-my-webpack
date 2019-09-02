@@ -200,7 +200,6 @@ class WebpackConfig {
                                         require('autoprefixer')({
                                             enabled: true
                                         }),
-
                                         require('postcss-mixins'),
                                         require('postcss-nested'),
                                         require('postcss-simple-vars'),
