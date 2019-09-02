@@ -55,8 +55,8 @@
         "webpack-notifier": "^1.7.0"
     },
     "browserslist": [
-        "last 1 version",
         "> 1%",
+        "last 2 versions",
         "IE 10"
     ]
 }
