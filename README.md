@@ -79,6 +79,7 @@ Our project boilerplates are already setup and ready to go, but sometimes you ma
 |**`hmr.host`**|`{String}`|`false`|The address that webpack dev server will bind to for hot module replacement. Default: `localhost`|
 |**`hmr.port`**|`{Number}`|`false`|The port that webpack dev server will bind to for hot module replacement. Default: `8080`|
 |**`extend`**|`{Function}`|`false`|Extend or override the underlying webpack configuration. This callback function should return an object which will be deep merged with the current configuration. The callback receives two arguments: the current configuration `config` and `webpack`. |
+|**`transpileModules`**|`{Array.<string>}`|`false`|An array of node module names that should be included in the babel transpilation. This is useful if for example you import a third party module that uses ES6 syntax. Default: `dom7, ssr-window, swiper` |
 
 ## Commands
 The following commands are predefined for you in `package.json` to make your life a little easier:

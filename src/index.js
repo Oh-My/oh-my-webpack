@@ -27,6 +27,15 @@ class WebpackConfig {
             enabled: true
         }, this.options.purgeCss);
 
+        let babelExclude = /node_modules/;
+
+        this.options = Object.assign({
+            transpileModules: ['dom7', 'ssr-window', 'swiper']
+        }, this.options);
+
+        if (this.options.transpileModules.length) {
+            babelExclude = new RegExp('node_modules/(?!('+this.options.transpileModules.join('|')+')/).*');
+        }
 
         if (fs.existsSync(path.join(this.options.out, 'hot'))) {
             fs.unlinkSync(path.join(this.options.out, 'hot'));
@@ -139,7 +148,7 @@ class WebpackConfig {
                 rules: [
                     {
                         test: /\.js$/,
-                        exclude: /node_modules/,
+                        exclude: babelExclude,
                         use: {
                             loader: 'babel-loader',
                             options: {

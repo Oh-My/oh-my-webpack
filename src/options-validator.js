@@ -14,7 +14,8 @@ module.exports = function(options) {
             host: { type: String, required: false },
             port: { type: Number, required: false }
         },
-        extend: { type: Function, required: false }
+        extend: { type: Function, required: false },
+        transpileModules: { type: Array, required: false }
     });
 
     let errors = schema.validate(options, {strip: false});
