@@ -54,6 +54,9 @@
         "webpack-merge": "^4.2.1",
         "webpack-notifier": "^1.7.0"
     },
+    "scripts": {
+        "postinstall": "scripts/postinstall"
+    },
     "browserslist": [
         "> 1%",
         "last 2 versions",

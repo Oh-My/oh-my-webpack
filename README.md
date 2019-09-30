@@ -9,8 +9,7 @@ So basically what we have here is some bundling with webpack. The setup comes wi
 ### PostCSS
 Yeah, you heard it right. No more SCSS and crying terminals when trying to resolve missing `node-sass` bindings during `npm install`. We've included some neat PostCSS plugins though, which should essentially make the transition seamless.
 
-Oh, and by the way! You can add additional PostCSS plugins to your build if you want to do some crazy shit. See the `extend` option documented in the options section below.
-
+Oh, and by the way! You can add additional PostCSS plugins to your build if you want to do some crazy shit.
 
 ### Tailwind (https://tailwindcss.com/docs)
 In your project root you will find a file called tailwind.config.js.
@@ -26,60 +25,12 @@ For anything other than simple add/remove classes and sending ajax requests for 
 You might not be needing **Vue**, and that's fine. Just remove all things **Vue** in your `app.js`.
 
 #### Other frameworks
-Don't count on the base webpack configuration to handle compilation of components for you. You can add the necessary loaders and stuff to the webpack configuration by using the `extend` option documented in the options section below.
-
+Don't count on the base webpack configuration to handle compilation of components for you. You are however free to add the necessary loaders and stuff to the webpack config.
 
 ### Compatible with the Laravel Mix helper
 The build process generates a `mix-manifest.json` which means you may use the [`mix()`](https://laravel.com/docs/5.8/helpers#method-mix) helper just like normal to resolve asset urls in Laravel projects. It's actually also compatible with the automatic replacement of the asset urls when hot module replacement is enabled.
 
 To further take advantage of this fact, we've included the same mix helper in the WordPress boilerplate for you as well.
-
-## Configuration example
-
-```javascript
-const WebpackConfig = require('oh-my-webpack');
-
-module.exports = new WebpackConfig({
-    publicPath: 'web',
-    out: 'web/wp-content/themes/example-theme/build',
-    watch: [
-        "web/wp-content/**/*.php"
-    ],
-    purgeCss: {
-        // Enables purgeCss for production only (recommended)
-        enabled: process.env.NODE_ENV === 'production',
-        options: {
-            content: [
-                "./resources/js/**/*.js",
-                "./resources/js/**/*.vue",
-                "./web/wp-content/**/*.php"
-            ]
-        }
-    },
-    hmr: {
-        host: 'localhost',
-        port: 8080
-    },
-    extend: (config, webpack) => {
-        // Provide any additional webpack configuration options here
-    }
-});
-```
-
-## Options
-Our project boilerplates are already setup and ready to go, but sometimes you may want to do things a bit differently. The following options are available for you to dictate how webpack will compile your assets:
-
-|Name|Type|Required|Description|
-|-|--|-|-|
-|**`publicPath`**|`{String}`|`true`|Path to the public root directory served by your application, relative to the project root.|
-|**`out`**|`{String}`|`true`|Path to the build directory in which compiled assets are placed, relative to the project root.|
-|**`watch`**|`{Array.<string>}`|`true`|Additional files to be watched for changes, relative to the project root. Paths may include glob `*` patterns.|
-|**`purgeCss.enabled`**|`{Boolean}`|`false`|Whether [Purgecss](https://www.purgecss.com) should be used to remove unused classes. Default: `true`|
-|**`purgeCss.options`**|`{Object}`|`false`|An options object to pass to [Purgecss](https://www.purgecss.com). See the [documentation](https://www.purgecss.com/with-postcss) for available options.|
-|**`hmr.host`**|`{String}`|`false`|The address that webpack dev server will bind to for hot module replacement. Default: `localhost`|
-|**`hmr.port`**|`{Number}`|`false`|The port that webpack dev server will bind to for hot module replacement. Default: `8080`|
-|**`extend`**|`{Function}`|`false`|Extend or override the underlying webpack configuration. This callback function should return an object which will be deep merged with the current configuration. The callback receives two arguments: the current configuration `config` and `webpack`. |
-|**`transpileModules`**|`{Array.<string>}`|`false`|An array of node module names that should be included in the babel transpilation. This is useful if for example you import a third party module that uses ES6 syntax. Default: `dom7, ssr-window, swiper` |
 
 ## Commands
 The following commands are predefined for you in `package.json` to make your life a little easier:
@@ -97,7 +48,9 @@ The following commands are predefined for you in `package.json` to make your lif
 - [CSS background images and web fonts are giving me 404's](#css-background-images-and-web-fonts-are-giving-me-404s)
 
 ### I deployed my project and now a bunch of CSS classes are missing
-This is most certainly due to [Purgecss](https://www.purgecss.com/) treating them as unused classes, therefore removing them from the build result. To get around this you will either have to [whitelist](https://www.purgecss.com/whitelisting) the missing CSS classes or add additional watch paths to **`purgeCss`**  ([see the options section above](#options)). Note that purgeCss is usually only enabled when compiling using the **`npm run build`** command. Therefore it could be wise to run the command locally before you deploy to make sure your classes stays intact.
+This is most certainly due to [Purgecss](https://www.purgecss.com/) treating them as unused classes, thus removing them from the build result. To prevent this you will either have to [whitelist](https://www.purgecss.com/whitelisting) the missing CSS classes or add additional content paths to the [Purgecss](https://www.purgecss.com/) options.
+
+**Note:** [Purgecss](https://www.purgecss.com/) is by default only enabled when compiling using the **`npm run build`** command. Therefore it is encouraged to run the command locally pre deployment to make sure your classes stay intact.
 
 ### CSS background images and web fonts are giving me 404's
 The **`url()`** declarations in your stylesheets should be relative to the location of your compiled CSS file. So if for example your compiled CSS is stored and served from:
