@@ -55,7 +55,7 @@
         "webpack-notifier": "^1.7.0"
     },
     "scripts": {
-        "postinstall": "scripts/postinstall"
+        "postinstall": "scripts/postinstall.js"
     },
     "browserslist": [
         "> 1%",
