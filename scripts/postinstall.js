@@ -33,6 +33,7 @@ Object.entries(defaults[type]).forEach(([key, value]) => {
 });
 
 fs.writeFileSync(path.join(process.cwd(), 'webpack.config.js'), file, 'utf8');
+console.log('Copied webpack.config.js to '+process.cwd());
 
 function guess_project_type() {
     if (fs.existsSync(path.resolve(process.cwd(), 'web/wp-config.php'))) {
