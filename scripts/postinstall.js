@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const cwd = process.env.INIT_CWD;
+
 const type = guess_project_type();
 
 let file = fs.readFileSync(path.resolve(__dirname, '../src/webpack.config.js'), 'utf8');
@@ -32,15 +34,15 @@ Object.entries(defaults[type]).forEach(([key, value]) => {
         : file.replace(new RegExp('\\$'+key+'\\$'), "'"+value+"'");
 });
 
-fs.writeFileSync(path.join(process.cwd(), 'webpack.config.js'), file, 'utf8');
-console.log('Copied webpack.config.js to '+process.cwd());
+fs.writeFileSync(path.join(cwd, 'webpack.config.js'), file, 'utf8');
+console.log('Copied webpack.config.js to '+cwd);
 
 function guess_project_type() {
-    if (fs.existsSync(path.resolve(process.cwd(), 'web/wp-config.php'))) {
+    if (fs.existsSync(path.resolve(cwd, 'web/wp-config.php'))) {
         return 'wordpress';
     }
 
-    if (fs.existsSync(path.resolve(process.cwd(), 'artisan'))) {
+    if (fs.existsSync(path.resolve(cwd, 'artisan'))) {
         return 'laravel';
     }
 
