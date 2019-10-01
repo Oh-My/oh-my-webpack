@@ -5,6 +5,11 @@ const cwd = process.env.INIT_CWD;
 
 const type = guess_project_type();
 
+if (fs.existsSync(path.join(cwd, 'webpack.config.js'))) {
+    console.log('A webpack.config.js already exists in '+cwd);
+    process.exit(0);
+}
+
 let file = fs.readFileSync(path.resolve(__dirname, '../src/webpack.config.js'), 'utf8');
 
 const defaults = {
@@ -38,6 +43,7 @@ Object.entries(defaults[type]).forEach(([key, value]) => {
 });
 
 fs.writeFileSync(path.join(cwd, 'webpack.config.js'), file, 'utf8');
+
 console.log('Copied webpack.config.js to '+cwd);
 
 function guess_project_type() {
