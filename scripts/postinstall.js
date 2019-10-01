@@ -11,19 +11,22 @@ const defaults = {
     wordpress: {
         PUBLIC_PATH: 'web',
         OUT: 'web/wp-content/themes/{{cookiecutter.project_slug}}/build',
-        PURGECSS: './web/wp-content/**/*.php',
+        PURGECSS_CONTENT: './web/wp-content/**/*.php',
+        PURGECSS_WHITELIST: null,
         WATCH: 'web/wp-content/**/*.php'
     },
     laravel: {
         PUBLIC_PATH: 'public',
         OUT: 'public/build',
-        PURGECSS: './resources/views/**/**.blade.php',
+        PURGECSS_CONTENT: './resources/views/**/**.blade.php',
+        PURGECSS_WHITELIST: null,
         WATCH: 'resources/views/**/**.blade.php'
     },
     other: {
         PUBLIC_PATH: 'web',
         OUT: 'web/build',
-        PURGECSS: null,
+        PURGECSS_CONTENT: null,
+        PURGECSS_WHITELIST: null,
         WATCH: null
     }
 }

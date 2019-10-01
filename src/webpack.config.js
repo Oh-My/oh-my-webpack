@@ -99,12 +99,13 @@ module.exports = {
                                 require('postcss-hexrgba'),
                                 require('@fullhuman/postcss-purgecss')({
                                     defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
-                                    options: {
-                                        content: [
-                                            "./resources/js/**/*.vue",
-                                            $PURGECSS$
-                                        ]
-                                    }
+                                    whitelist: [
+                                        $PURGECSS_WHITELIST$
+                                    ],
+                                    content: [
+                                        "./resources/js/**/*.vue",
+                                        $PURGECSS_CONTENT$
+                                    ]
                                 })
                             ]
                         }
