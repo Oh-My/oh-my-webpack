@@ -13,7 +13,7 @@ module.exports = class ManifestPlugin {
 
     apply(compiler) {
         compiler.hooks.emit.tapAsync('ManifestPlugin', this.refreshManifest.bind(this));
-        compiler.hooks.done.tap('ManifestPlugin', this.write.bind(this));
+        compiler.hooks.done.tapAsync('ManifestPlugin', this.write.bind(this));
     }
 
     refreshManifest(compiler, callback) {
@@ -36,8 +36,9 @@ module.exports = class ManifestPlugin {
         callback();
     }
 
-    write() {
+    write(stats, callback) {
         if (process.argv.includes('--hot')) {
+            callback();
             return;
         }
 
@@ -48,6 +49,8 @@ module.exports = class ManifestPlugin {
             path.join(this.publicPath, 'mix-manifest.json'),
             JSON.stringify(this.manifest, null, 4) + os.EOL
         );
+
+        callback();
     }
 
     applyVersioning() {

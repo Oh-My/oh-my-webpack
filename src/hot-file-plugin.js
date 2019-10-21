@@ -18,6 +18,8 @@ module.exports = class HotFilePlugin {
             if (process.argv.includes('--hot')) {
                 fs.writeFileSync(path.join(this.out, 'hot'), `http://${this.host}:${this.port}/`);
             }
+
+            callback();
         });
     }
 
