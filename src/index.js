@@ -33,7 +33,7 @@ class WebpackConfig {
             this.options.transpileModules = [];
         }
 
-        this.options.transpileModules.concat(['dom7', 'ssr-window', 'swiper']);
+        this.options.transpileModules = this.options.transpileModules.concat(['dom7', 'ssr-window', 'swiper']);
 
         if (this.options.transpileModules.length) {
             babelExclude = new RegExp('node_modules/(?!('+this.options.transpileModules.join('|')+')/).*');
