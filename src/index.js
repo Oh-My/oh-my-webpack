@@ -249,7 +249,7 @@ class WebpackConfig {
     }
 
     build(config) {
-        return this.options.extend === 'function'
+        return typeof this.options.extend === 'function'
             ? merge.smart(config, this.options.extend(config, webpack))
             : config;
     }
