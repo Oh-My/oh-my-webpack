@@ -39,14 +39,22 @@ class WebpackConfig {
             babelExclude = new RegExp('node_modules/(?!('+this.options.transpileModules.join('|')+')/).*');
         }
 
-        if (fs.existsSync(path.join(this.options.out, 'hot'))) {
-            fs.unlinkSync(path.join(this.options.out, 'hot'));
+        let hotFilePath = this.options.hotFilePath || this.options.out;
+
+        if (fs.existsSync(path.join(hotFilePath, 'hot'))) {
+            fs.unlinkSync(path.join(hotFilePath, 'hot'));
         }
 
         if (this.hot) {
+            let hotUrl = `http://${this.options.hmr.host}:${this.options.hmr.port}`;
+
+            if (this.options.hotUrlTrailingSlash !== false) {
+                hotUrl = hotUrl + '/';
+            }
+
             fs.writeFileSync(
-                path.join(this.options.out, 'hot'),
-                `http://${this.options.hmr.host}:${this.options.hmr.port}/`
+                path.join(hotFilePath, 'hot'),
+                hotUrl
             );
         }
 
@@ -238,7 +246,10 @@ class WebpackConfig {
                     'Access-Control-Allow-Origin': '*'
                 },
                 disableHostCheck: true,
-                contentBase: path.resolve(this.options.out, '../'),
+                contentBase: this.options.hmr.contentBase || path.resolve(this.options.out, '../'),
+                ...this.options.hmr.publicPath
+                    ? {publicPath: this.options.hmr.publicPath}
+                    : {},
                 historyApiFallback: true,
                 noInfo: true,
                 compress: true,
