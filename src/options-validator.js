@@ -10,6 +10,7 @@ module.exports = function(options) {
             enabled: { type: Boolean, required: false },
             options: { type: Object, required: false }
         },
+        postCssPresetOptions: { type: Object, required: false },
         hmr: {
             host: { type: String, required: false },
             port: { type: Number, required: false },

@@ -217,7 +217,8 @@ class WebpackConfig {
                                         require('postcss-import'),
                                         require('tailwindcss'),
                                         require('postcss-preset-env')({
-                                            stage: 1
+                                            stage: 1,
+                                            ...this.options.postCssPresetOptions
                                         }),
                                         require('postcss-mixins'),
                                         require('postcss-simple-vars'),
