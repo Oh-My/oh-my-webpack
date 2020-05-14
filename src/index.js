@@ -216,13 +216,11 @@ class WebpackConfig {
                                     plugins: [
                                         require('postcss-import'),
                                         require('tailwindcss'),
-                                        require('autoprefixer')({
-                                            enabled: true
+                                        require('postcss-preset-env')({
+                                            stage: 1
                                         }),
                                         require('postcss-mixins'),
-                                        require('postcss-nested'),
                                         require('postcss-simple-vars'),
-                                        require('postcss-hexrgba'),
                                         ...this.options.purgeCss.enabled
                                             ? [require('@fullhuman/postcss-purgecss')(purgeCssOptions)]
                                             : [],
