@@ -220,6 +220,7 @@ class WebpackConfig {
                                             stage: 1,
                                             ...this.options.postCssPresetOptions
                                         }),
+                                        require('postcss-nested'),
                                         require('postcss-mixins'),
                                         require('postcss-simple-vars'),
                                         ...this.options.purgeCss.enabled
