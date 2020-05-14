@@ -223,7 +223,6 @@ class WebpackConfig {
                                         require('postcss-nested'),
                                         require('postcss-simple-vars'),
                                         require('postcss-hexrgba'),
-                                        require('postcss-preset-env')({ stage: 1 }),
                                         ...this.options.purgeCss.enabled
                                             ? [require('@fullhuman/postcss-purgecss')(purgeCssOptions)]
                                             : [],
