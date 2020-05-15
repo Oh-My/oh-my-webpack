@@ -11,7 +11,6 @@ Yeah, you heard it right. No more SCSS and crying terminals when trying to resol
 
 Oh, and by the way! You can add additional PostCSS plugins to your build if you want to do some crazy shit. See the `extend` option documented in the options section below.
 
-
 ### Tailwind (https://tailwindcss.com/docs)
 In your project root you will find a file called tailwind.config.js.
 In there are a few examples on how you can extend the base config to fit your projects every need. This can be compared to setting up variables in SCSS.
@@ -28,11 +27,15 @@ You might not be needing **Vue**, and that's fine. Just remove all things **Vue*
 #### Other frameworks
 Don't count on the base webpack configuration to handle compilation of components for you. You can add the necessary loaders and stuff to the webpack configuration by using the `extend` option documented in the options section below.
 
-
 ### Compatible with the Laravel Mix helper
 The build process generates a `mix-manifest.json` which means you may use the [`mix()`](https://laravel.com/docs/5.8/helpers#method-mix) helper just like normal to resolve asset urls in Laravel projects. It's actually also compatible with the automatic replacement of the asset urls when hot module replacement is enabled.
 
-To further take advantage of this fact, we've included the same mix helper in the WordPress boilerplate for you as well.
+To further take advantage of this fact, we've included the same mix helper in
+the WordPress boilerplate for you as well.
+
+### 🎉 Fun stuffs 🎉
+add ```webpack-dashboard -- ``` infront of ```webpack-dev-server``` in your npm-script
+to get a more [`fun output`](https://github.com/FormidableLabs/webpack-dashboard).
 
 ## Configuration example
 
@@ -95,7 +98,6 @@ The following commands are predefined for you in `package.json` to make your lif
 |**`npm run watch`**|Compiles your assets for development and recompiles whenever files are changed.|
 |**`npm run hot`**|Like the above, but with hot module replacement enabled.|
 |**`npm run build`**|Compiles your assets for production.|
-|**`npm run analyze`**|Runs webpack-bundle-analyzer.|
 
 ## Frequently Asked Questions
 
@@ -141,6 +143,7 @@ then the correct url for your web fonts would be:
 - [`terser-webpack-plugin`](https://www.npmjs.com/package/terser-webpack-plugin)
 - [`optimize-css-assets-webpack-plugin`](https://www.npmjs.com/package/optimize-css-assets-webpack-plugin)
 - [`webpack-bundle-analyzer`](https://github.com/webpack-contrib/webpack-bundle-analyzer)
+- [`webpack-dashboard`](https://github.com/FormidableLabs/webpack-dashboard)
 
 ## Conclusion
 That's it. This project is forever changing and will hopefully be easily maintained (at least compared to the old Gulp boilerplate) by all of us.
