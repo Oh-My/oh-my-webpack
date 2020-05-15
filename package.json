@@ -1,6 +1,6 @@
 {
     "name": "@ohmy/webpack",
-    "version": "1.0.22",
+    "version": "1.0.23",
     "repository": {
         "type": "git",
         "url": "git+https://ohmy_dev@bitbucket.org/ohmy_dev/oh-my-webpack.git"
