@@ -12,6 +12,7 @@ const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('./manifest-plugin');
+const DashboardPlugin = require("webpack-dashboard/plugin");
 
 class WebpackConfig {
 
@@ -150,6 +151,13 @@ class WebpackConfig {
                         : undefined,
                     contentImage: path.join(__dirname, 'logo.png'),
                 }),
+                new DashboardPlugin(),
+                new BundleAnalyzerPlugin({
+                    analyzerMode: 'disabled',
+                    generateStatsFile: process.env.NODE_ENV === 'production',
+                    statsFilename: 'webpack-stats.json',
+                    statsOptions: { source: false }
+                })
             ],
 
             resolve: {
