@@ -35,7 +35,7 @@ the WordPress boilerplate for you as well.
 
 ### 🎉 Fun stuffs 🎉
 add ```webpack-dashboard -- ``` infront of ```webpack-dev-server``` in your npm-script
-to get a more [`fun output`](https://github.com/FormidableLabs/webpack-dashboard).
+to get a more [`detailed output`](https://github.com/FormidableLabs/webpack-dashboard).
 
 ## Configuration example
 
