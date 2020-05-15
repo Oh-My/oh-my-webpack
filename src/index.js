@@ -150,7 +150,6 @@ class WebpackConfig {
                         : undefined,
                     contentImage: path.join(__dirname, 'logo.png'),
                 }),
-                new BundleAnalyzerPlugin()
             ],
 
             resolve: {
