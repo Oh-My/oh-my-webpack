@@ -80,6 +80,8 @@ Our project boilerplates are already setup and ready to go, but sometimes you ma
 |**`hmr.port`**|`{Number}`|`false`|The port that webpack dev server will bind to for hot module replacement. Default: `8080`|
 |**`extend`**|`{Function}`|`false`|Extend or override the underlying webpack configuration. This callback function should return an object which will be deep merged with the current configuration. The callback receives two arguments: the current configuration `config` and `webpack`. |
 |**`transpileModules`**|`{Array.<string>}`|`false`|An array of node module names that should be included in the babel transpilation. This is useful if for example you import a third party module that uses ES6 syntax. Default: `dom7, ssr-window, swiper` |
+|**`postcssPresetEnv.stage`**|`{Number.<string>}`|`false`|Refers to which css-features to plolyfill. 2 is default. See the[documentation](https://github.com/csstools/postcss-preset-env#stage) |
+|**`postcssPresetEnv.options`**|`{Object.<string>}`|`false`|Options to pass to the postcss-preset-env-module. Useful if you want to combine certain features with stages, See the[documentation](https://github.com/csstools/postcss-preset-env#features) |
 
 ## Commands
 The following commands are predefined for you in `package.json` to make your life a little easier:
@@ -90,6 +92,7 @@ The following commands are predefined for you in `package.json` to make your lif
 |**`npm run watch`**|Compiles your assets for development and recompiles whenever files are changed.|
 |**`npm run hot`**|Like the above, but with hot module replacement enabled.|
 |**`npm run build`**|Compiles your assets for production.|
+|**`npm run analyze`**|Runs webpack-bundle-analyzer.|
 
 ## Frequently Asked Questions
 
@@ -134,6 +137,7 @@ then the correct url for your web fonts would be:
 - [`@fullhuman/postcss-purgecss`](https://www.npmjs.com/package/@fullhuman/postcss-purgecss)
 - [`terser-webpack-plugin`](https://www.npmjs.com/package/terser-webpack-plugin)
 - [`optimize-css-assets-webpack-plugin`](https://www.npmjs.com/package/optimize-css-assets-webpack-plugin)
+- [`webpack-bundle-analyzer`](https://github.com/webpack-contrib/webpack-bundle-analyzer)
 
 ## Conclusion
 That's it. This project is forever changing and will hopefully be easily maintained (at least compared to the old Gulp boilerplate) by all of us.

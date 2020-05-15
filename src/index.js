@@ -10,6 +10,7 @@ const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const WebpackNotifierPlugin = require('webpack-notifier');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const ManifestPlugin = require('./manifest-plugin');
 
 class WebpackConfig {
@@ -26,6 +27,10 @@ class WebpackConfig {
         this.options.purgeCss = Object.assign({
             enabled: true
         }, this.options.purgeCss);
+
+        let postcssPresetEnvOptions = Object.assign({
+            stage: 2
+        }, this.options.postcssPresetEnv);
 
         let babelExclude = /node_modules/;
 
@@ -144,7 +149,8 @@ class WebpackConfig {
                         ? 'int:transient:1'
                         : undefined,
                     contentImage: path.join(__dirname, 'logo.png'),
-                })
+                }),
+                new BundleAnalyzerPlugin()
             ],
 
             resolve: {
@@ -216,10 +222,7 @@ class WebpackConfig {
                                     plugins: [
                                         require('postcss-import'),
                                         require('tailwindcss'),
-                                        require('postcss-preset-env')({
-                                            stage: 1,
-                                            ...this.options.postCssPresetOptions
-                                        }),
+                                        require('postcss-preset-env')(postcssPresetEnvOptions),
                                         require('postcss-nested'),
                                         require('postcss-mixins'),
                                         require('postcss-simple-vars'),
