@@ -180,7 +180,9 @@ class WebpackConfig {
                                         '@babel/preset-env',
                                         {
                                             modules: false,
-                                            forceAllTransforms: true
+                                            forceAllTransforms: true,
+                                            useBuiltIns: "entry",
+                                            corejs: 3
                                         }
                                     ]
                                 ],
@@ -190,6 +192,7 @@ class WebpackConfig {
                                     [
                                         '@babel/plugin-transform-runtime',
                                         {
+                                            corejs: 3,
                                             helpers: false
                                         }
                                     ]
