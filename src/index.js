@@ -270,10 +270,14 @@ class WebpackConfig {
     }
 
     build(config) {
-        return typeof this.options.extend === 'function'
+        // TODO: options.extend does not work as before
+        const doMerge = typeof this.options.extend === 'function' && typeof this.options.extend(config, webpack) !== 'undefined'
+
+        return doMerge
             ? merge(config, this.options.extend(config, webpack))
             : config;
     }
+
 }
 
 module.exports = WebpackConfig;
