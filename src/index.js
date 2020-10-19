@@ -271,7 +271,7 @@ class WebpackConfig {
 
     build(config) {
         return typeof this.options.extend === 'function'
-            ? merge.smart(config, this.options.extend(config, webpack))
+            ? merge(config, this.options.extend(config, webpack))
             : config;
     }
 }
