@@ -228,7 +228,7 @@ class WebpackConfig {
                                     ident: 'postcss',
                                     plugins: [
                                         require('postcss-import'),
-                                        require('tailwindcss'),
+                                        this.options.customTailwind || require('tailwindcss'),
                                         require('postcss-preset-env')(postcssPresetEnvOptions),
                                         require('postcss-nested'),
                                         require('postcss-mixins'),

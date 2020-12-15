@@ -15,14 +15,15 @@ module.exports = function(options) {
             options: { type: Object, required: false }
         },
         hmr: {
-            host: { type: String, required: false },
+            host: { type: String, required: false },
             port: { type: Number, required: false },
             contentBase: { type: String, required: false },
             publicPath: { type: String, required: false }
         },
         extend: { type: Function, required: false },
         transpileModules: { type: Array, required: false },
-        hotFilePath: { type: String, required: false }
+        hotFilePath: { type: String, required: false },
+        customTailwind: { required: false }
     });
 
     let errors = schema.validate(options, {strip: false});
