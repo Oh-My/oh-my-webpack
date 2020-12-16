@@ -98,7 +98,7 @@ module.exports = {
             process.platform === 'linux'
                 ? 'int:transient:1'
                 : undefined,
-            contentImage: require.resolve('@ohmy/webpack/logo.png'),
+            contentImage: require.resolve('@ohmy/webpack/src/logo.png'),
         }),
         new BundleAnalyzerPlugin({
             analyzerMode: 'disabled',
