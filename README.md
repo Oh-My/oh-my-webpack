@@ -25,7 +25,7 @@ For anything other than simple add/remove classes and sending ajax requests for 
 You might not be needing **Vue**, and that's fine. Just remove all things **Vue** in your `app.js`.
 
 #### Other frameworks
-Don't count on the base webpack configuration to handle compilation of components for you. You can add the necessary loaders and stuff to the webpack configuration by using the `extend` option documented in the options section below.
+Don't count on the base webpack configuration to handle compilation of components for you. You are free to add the necessary loaders and stuff to the webpack configuration yourself though.
 
 ### Compatible with the Laravel Mix helper
 The build process generates a `mix-manifest.json` which means you may use the [`mix()`](https://laravel.com/docs/5.8/helpers#method-mix) helper just like normal to resolve asset urls in Laravel projects. It's actually also compatible with the automatic replacement of the asset urls when hot module replacement is enabled.
@@ -37,57 +37,8 @@ the WordPress boilerplate for you as well.
 add ```webpack-dashboard -- ``` infront of ```webpack-dev-server``` in your npm-script
 to get a more [`detailed output`](https://github.com/FormidableLabs/webpack-dashboard).
 
-## Configuration example
-
-```javascript
-const WebpackConfig = require('oh-my-webpack');
-
-module.exports = new WebpackConfig({
-    publicPath: 'web',
-    out: 'web/wp-content/themes/example-theme/build',
-    watch: [
-        "web/wp-content/**/*.php"
-    ],
-    purgeCss: {
-        // Enables purgeCss for production only (recommended)
-        enabled: process.env.NODE_ENV === 'production',
-        options: {
-            content: [
-                "./resources/js/**/*.js",
-                "./resources/js/**/*.vue",
-                "./web/wp-content/**/*.php"
-            ]
-        }
-    },
-    postcssPresetEnv: {
-        stage: 1
-    },
-    hmr: {
-        host: 'localhost',
-        port: 8080
-    },
-    extend: (config, webpack) => {
-        // Provide any additional webpack configuration options here
-    }
-});
-```
-
-## Options
-Our project boilerplates are already setup and ready to go, but sometimes you may want to do things a bit differently. The following options are available for you to dictate how webpack will compile your assets:
-
-|Name|Type|Required|Description|
-|-|--|-|-|
-|**`publicPath`**|`{String}`|`true`|Path to the public root directory served by your application, relative to the project root.|
-|**`out`**|`{String}`|`true`|Path to the build directory in which compiled assets are placed, relative to the project root.|
-|**`watch`**|`{Array.<string>}`|`true`|Additional files to be watched for changes, relative to the project root. Paths may include glob `*` patterns.|
-|**`purgeCss.enabled`**|`{Boolean}`|`false`|Whether [Purgecss](https://www.purgecss.com) should be used to remove unused classes. Default: `true`|
-|**`purgeCss.options`**|`{Object}`|`false`|An options object to pass to [Purgecss](https://www.purgecss.com). See the [documentation](https://www.purgecss.com/with-postcss) for available options.|
-|**`hmr.host`**|`{String}`|`false`|The address that webpack dev server will bind to for hot module replacement. Default: `localhost`|
-|**`hmr.port`**|`{Number}`|`false`|The port that webpack dev server will bind to for hot module replacement. Default: `8080`|
-|**`extend`**|`{Function}`|`false`|Extend or override the underlying webpack configuration. This callback function should return an object which will be deep merged with the current configuration. The callback receives two arguments: the current configuration `config` and `webpack`. |
-|**`transpileModules`**|`{Array.<string>}`|`false`|An array of node module names that should be included in the babel transpilation. This is useful if for example you import a third party module that uses ES6 syntax. Default: `dom7, ssr-window, swiper` |
-|**`postcssPresetEnv.stage`**|`{Number}`|`false`|Refers to which css-features to plolyfill. 2 is default. See the[documentation] (https://github.com/csstools/postcss-preset-env#stage) |
-|**`postcssPresetEnv.options`**|`{Object}`|`false`|Options to pass to the postcss-preset-env-module. Useful if you want to combine certain features with stages, See the[documentation] (https://github.com/csstools/postcss-preset-env#features) |
+## Configuration
+[`Read the webpack docs`](https://webpack.js.org/configuration/).
 
 ## Commands
 The following commands are predefined for you in `package.json` to make your life a little easier:

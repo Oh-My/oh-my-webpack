@@ -1,61 +1,61 @@
-const path = require('path');
-const md5 = require('md5');
-const fs = require('fs-extra');
-const os = require('os');
+const path = require('path')
+const md5 = require('md5')
+const fs = require('fs-extra')
+const os = require('os')
 
 module.exports = class ManifestPlugin {
 
     constructor(out, publicPath) {
-        this.out = out;
-        this.publicPath = publicPath;
-        this.manifest = {};
+        this.out = out
+        this.publicPath = publicPath
+        this.manifest = {}
     }
 
     apply(compiler) {
-        compiler.hooks.emit.tapAsync('ManifestPlugin', this.refreshManifest.bind(this));
-        compiler.hooks.done.tap('ManifestPlugin', this.write.bind(this));
+        compiler.hooks.emit.tapAsync('ManifestPlugin', this.refreshManifest.bind(this))
+        compiler.hooks.done.tap('ManifestPlugin', this.write.bind(this))
     }
 
     refreshManifest(compiler, callback) {
-        let stats = compiler.getStats().toJson();
-        let assets = Object.assign({}, stats.assetsByChunkName);
+        let stats = compiler.getStats().toJson()
+        let assets = Object.assign({}, stats.assetsByChunkName)
 
         if (! Array.isArray(assets.main)) {
-            assets.main = [assets.main];
+            assets.main = [assets.main]
         }
 
         this.manifest = assets.main.reduce((manifest, asset) => {
-            let filePath = path.join(this.out.replace(this.publicPath, ''), asset);
-            let original = filePath.replace(/\?id=\w{20}/, '');
+            let filePath = path.join(this.out.replace(this.publicPath, ''), asset)
+            let original = filePath.replace(/\?id=\w{20}/, '')
 
-            manifest[original] = filePath;
+            manifest[original] = filePath
 
-            return manifest;
-        }, {});
+            return manifest
+        }, {})
 
-        callback();
+        callback()
     }
 
     write() {
         if (process.argv.includes('--hot')) {
-            return;
+            return
         }
 
-        this.applyVersioning();
+        this.applyVersioning()
 
-        fs.ensureDirSync(this.publicPath);
+        fs.ensureDirSync(this.publicPath)
         fs.writeFileSync(
             path.join(this.publicPath, 'mix-manifest.json'),
             JSON.stringify(this.manifest, null, 4) + os.EOL
-        );
+        )
     }
 
     applyVersioning() {
         for (let asset in this.manifest) {
-            let file = fs.readFileSync(path.resolve(path.join(this.publicPath, asset)), 'utf8');
-            let version = md5(file).substr(0, 20);
+            let file = fs.readFileSync(path.resolve(path.join(this.publicPath, asset)), 'utf8')
+            let version = md5(file).substr(0, 20)
 
-            this.manifest[asset] = `${asset}?id=${version}`;
+            this.manifest[asset] = `${asset}?id=${version}`
         }
     }
 
