@@ -19,12 +19,14 @@ module.exports = class ManifestPlugin {
     refreshManifest(compiler, callback) {
         let stats = compiler.getStats().toJson();
         let assets = Object.assign({}, stats.assetsByChunkName);
+            /*
+                * get values for each key (asset grouped by chunkname) and
+                * flatten the array
+                * example: { main: [ 'app.css', 'app.js' ], vendor: 'vendor.js' }
+            */
+            assets = Object.values(assets).flat()
 
-        if (! Array.isArray(assets.main)) {
-            assets.main = [assets.main];
-        }
-
-        this.manifest = assets.main.reduce((manifest, asset) => {
+            this.manifest = assets.reduce((manifest, asset) => {
             let filePath = path.join(this.out.replace(this.publicPath, ''), asset);
             let original = filePath.replace(/\?id=\w{20}/, '');
 
